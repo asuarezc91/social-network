@@ -1,6 +1,4 @@
 <?php
-
-
 $con = mysqli_connect("localhost", "root", "", "ese");
 
 if (mysqli_connect_errno()) {
@@ -22,14 +20,20 @@ $date = ""; //Sign up date
 $error_array = ""; //Holds error messages
 
 
-if (isset($POST['register_button'])) {
+// $test = $_POST['reg_fname'];
+// echo "hola $test";
 
-    //Registration form values
+
+
+if (isset($_POST["register_button"])) {
+
+    // //Registration form values
 
     //First Name 
     $fname = strip_tags($_POST['reg_fname']); //Remove html tags
     $fname = str_replace('', '', $fname); //Remove spaces
     $fname = ucfirst(strtolower($fname)); // Uppercase first letter
+
 
     //Last Name
     $lname = strip_tags($_POST['reg_lname']); //Remove html tags
@@ -52,13 +56,21 @@ if (isset($POST['register_button'])) {
     $password2 = strip_tags($_POST['reg_password2']); //Remove html tags
 
 
-
     $date = date("Y-m-d"); //Current date;
 
 
+    if ($em == $em2) {
+        echo "";
 
+        if (filter_var($em, FILTER_VALIDATE_EMAIL)) {
+            $em =  filter_var($em, FILTER_VALIDATE_EMAIL);
+        } else {
 
-
+            echo "Invalid format";
+        }
+    } else {
+        echo "Emails don't match";
+    }
 }
 
 
@@ -78,7 +90,7 @@ if (isset($POST['register_button'])) {
 
 <body>
     <!-- Send infomation to this page with acction -->
-    <form action="registrer.php" method="POST">
+    <form action="register.php" method="POST">
         <input type="text" name="reg_fname" placeholder="First Name" require>
         <br>
         <input type="text" name="reg_lname" placeholder="Last Name" require>
@@ -91,9 +103,7 @@ if (isset($POST['register_button'])) {
         <br>
         <input type="password" name="reg_password2" placeholder="Confirm Password" require>
         <br>
-        <input type="submit" name="registrer_button" value="Registrer">
-
-
+        <input type="submit" name='register_button' value="Registrer">
     </form>
 
 
